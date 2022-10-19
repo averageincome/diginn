@@ -11,7 +11,7 @@ import { Sky } from 'three/examples/jsm/objects/Sky.js';
 // Setup
 const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xffffff );
-scene.fog = new THREE.Fog( 'black', 1, 400);
+//scene.fog = new THREE.Fog( 'white', 1, 2000);
 
 
 const cameraGroup = new THREE.Group();
@@ -27,7 +27,7 @@ cameraGroup.add(camera);
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
   antialias: true,
-  alpha: false,
+  alpha: true,
 });
 
 //Window & Listener
@@ -54,53 +54,52 @@ function onDocumentMouseMove(event) {
     mouseY = (event.clientY - windowY);
 }
 
-//Load Home GLTF
+//Load GLTF
 const gltfLoader = new GLTFLoader().setPath('public/models/');
 
+
+//Load Home GLB
 gltfLoader.load('home.glb', function(gltf){
 
-    var children = []
-    gltf.scene.position.setY(-75);
+    var homeChildren = []
+    gltf.scene.position.setY(-70);
     gltf.scene.scale.set(0.05, 0.05, 0.05);
     gltf.scene.traverse ( function ( child ){
         console.log(child);
         if (child.isMesh){
-            children.push(child)
+            homeChildren.push(child)
         }
     });
 
-    children[1].material = new THREE.MeshStandardMaterial( {color:0xffffff});
-
-    scene.add(gltf.scene);
-
-    
-    
-});
-
-/*
-//Load GLTF
-    const gltfLoader = new GLTFLoader().setPath('public/models/');
-
-    gltfLoader.load('shapes.glb', function(gltf){
-
-        var children = []
-
-        gltf.scene.scale.set(0.05, 0.05, 0.05);
-        gltf.scene.traverse ( function ( child ){
-            console.log(child);
-            if (child.isMesh){
-                children.push(child)
-            }
-        });
-
-        children[1].material = new THREE.MeshStandardMaterial( {color:0xffffff});
+        //Panoramic Window
+        homeChildren[9].material = new THREE.MeshStandardMaterial( {color: 'black'});
+        //Main Mat
+        //children[10].material = new THREE.MeshStandardMaterial( {color: 'blue'});
+        //Globe
+        homeChildren[1].material = new THREE.MeshStandardMaterial( {color: 'cyan'});
 
         scene.add(gltf.scene);
-
-        
-        
     });
-*/
+
+
+//Load waterTech GLB
+gltfLoader.load('waterTech.glb', function(gltf){
+
+    var waterTechChildren = []
+    gltf.scene.position.setX(20);
+    gltf.scene.position.setY(124);
+    gltf.scene.position.setZ(2050);
+    gltf.scene.scale.set(10, 10, 10);
+    gltf.scene.traverse ( function ( child ){
+        console.log(child);
+        if (child.isMesh){
+            waterTechChildren.push(child)
+        }
+    });
+
+        scene.add(gltf.scene);
+    });
+
 
 //Sky
 
@@ -141,7 +140,7 @@ gltfLoader.load('home.glb', function(gltf){
 
 //Water
 
-    const waterGeometry = new THREE.PlaneGeometry( 10000, 10000 );
+    const waterGeometry = new THREE.PlaneGeometry( 20000, 20000 );
 
 
     const water = new Water(
@@ -157,27 +156,31 @@ gltfLoader.load('home.glb', function(gltf){
         sunDirection: new THREE.Vector3(),
         sunColor: 0xffffff,
         waterColor: 0x001e0f,
-        distortionScale: 3.7,
+        distortionScale: 10,
         
         }
     );
 
     water.rotation.x =- Math.PI / 2;
+
+    const waterUniforms = water.material.uniforms;
+    waterUniforms.size, 2, 0.1, 10, 0.1;
     scene.add(water);
 
-    //const waterUniforms = water.material.uniforms;
 //return water;
 
 
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(10, 10, 10);
+const pointLight = new THREE.PointLight('white');
+pointLight.position.set(100, 50, -50);
 
-const ambientLight = new THREE.AmbientLight( 0x404040 );
-scene.add(pointLight, ambientLight);
+//const ambientLight = new THREE.AmbientLight( 0xd699ff);
+scene.add(pointLight);
+//scene.add(ambientLight);
 
-//const lightHelper = new THREE.PointLightHelper(pointLight);
-//const gridHelper = new THREE.GridHelper(200, 50);
-//scene.add(lightHelper, gridHelper);
+const lightHelper = new THREE.PointLightHelper(pointLight);
+const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper);
+scene.add(gridHelper);
 
 
 //const controls = new OrbitControls(camera, renderer.domElement);
@@ -217,11 +220,12 @@ function animate() {
     const deltaTime = elapsedTime - previousTime;
     previousTime = elapsedTime;
 
-    targetX = mouseX * .002;
-    targetY = mouseY * .002;
+    targetX = mouseX * .015;
+    targetY = mouseY * .01;
 
-    cameraGroup.position.x += (targetX - cameraGroup.position.x) * 50 * deltaTime;
-    cameraGroup.position.y += (targetY - cameraGroup.position.y) * 50 * deltaTime;
+    cameraGroup.position.x += (targetX - cameraGroup.position.x) * 1 * deltaTime;
+    cameraGroup.position.y += (targetY - cameraGroup.position.y) * 1 * deltaTime;
+
 
     water.material.uniforms[ 'time' ].value += 0.3 / 60.0;
 
