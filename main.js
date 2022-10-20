@@ -1,10 +1,10 @@
 import './style.css';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Water } from 'three/examples/jsm/objects/Water.js';
-import { Sky } from 'three/examples/jsm/objects/Sky.js';
+import { OrbitControls } from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/controls/OrbitControls';
+import { FBXLoader } from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/loaders/FBXLoader.js';
+import { GLTFLoader } from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/loaders/GLTFLoader.js';
+import { Water } from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/objects/Water.js';
+import { Sky } from 'https://github.com/mrdoob/three.js/blob/master/examples/jsm/objects/Sky.js';
 
 
 
