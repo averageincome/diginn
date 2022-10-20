@@ -16,6 +16,5 @@
   },
   "dependencies": {
     "three": "^0.144.0"
-  },
-  "homepage": "https://averageincome.github.io/diginn",
+  }
 }
