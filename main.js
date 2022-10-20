@@ -1,4 +1,4 @@
-import url('https://github.com/averageincome/diginn/blob/main/style.css');
+import 'https://github.com/averageincome/diginn/blob/main/style.css';
 import * as THREE from 'three';
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 //import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
