@@ -1,8 +1,9 @@
 import './style.css';
-import * as THREE from 'three';
+import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
+
 
 
 
@@ -237,10 +238,8 @@ function animate() {
     torus.rotation.x = 0.1 * elapsedTime;
     torus.rotation.y = 0.5 * elapsedTime;
     torus.rotation.z = 0.1 * elapsedTime;
-
     torus.rotation.x += 0.5 * (targetY - torus.rotation.x);
     torus.rotation.y += 0.5 * (targetX - torus.rotation.y);
-
     */
 
 
