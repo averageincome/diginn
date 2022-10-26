@@ -1,5 +1,5 @@
 import './style.css';
-import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
